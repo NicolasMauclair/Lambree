@@ -1,0 +1,1 @@
+ C:\\Users\\nicol\\OneDrive\\Documents\\USMB\\S7\\INFO701-Developpement_mobile_et_interactif\\lambree_app\\lambree_front\\.dart_tool\\flutter_build\\c3a60647185827f4e46a61b0a978313c\\native_assets.yaml: 
