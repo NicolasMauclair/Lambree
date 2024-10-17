@@ -1,16 +1,22 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
+import 'auth_service.dart';
+
+class MyConnexionForm extends StatefulWidget {
+  const MyConnexionForm({super.key});
 
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  MyConnexionFormState createState() {
+    return MyConnexionFormState();
   }
 }
 
-class MyCustomFormState extends State<MyCustomForm> {
+class MyConnexionFormState extends State<MyConnexionForm> {
   final _formKey = GlobalKey<FormState>(); // Clé globale pour le formulaire
+  String _email = '';
+  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.shade500,
-                    offset: const Offset(4.0, -4.0),
+                    offset: const Offset(4.0, -4.0),  
                     blurRadius: 15.0,
                     spreadRadius: 1.0,
                   ),
@@ -93,9 +99,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.shade500,
-                              offset: const Offset(0, 2), // Ombre en bas
-                              blurRadius: 8.0, // Flou de l'ombre
-                              spreadRadius: 1.0, // Expansion de l'ombre
+                              offset: const Offset(0, 5),
+                              blurRadius: 5.0,
+                            ),
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: const Offset(-5, 0),
+                            ),
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: const Offset(5, 0),
                             ),
                           ],
                         ),
@@ -120,12 +133,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                                   labelText: 'Email',
                                   border: InputBorder.none, // Supprime le contour par défaut
                                 ),
+
+                                // Valide le mail
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Veuillez entrer du texte';
+                                    return 'Entrez votre adresse mail';
                                   }
                                   return null;
                                 },
+                                onSaved: (value) => _email = value!,
+
                               ),
                             ),
                           ],
@@ -146,9 +163,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.shade500,
-                              offset: const Offset(0, 2), // Ombre en bas
-                              blurRadius: 8.0, // Flou de l'ombre
-                              spreadRadius: 1.0, // Expansion de l'ombre
+                              offset: const Offset(0, 5),
+                              blurRadius: 5.0,
+                            ),
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: const Offset(-5, 0),
+                            ),
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: const Offset(5, 0),
                             ),
                           ],
                         ),
@@ -175,12 +199,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                                   border: InputBorder.none,
                                 ),
                                 obscureText: true, // Masque le texte saisi
+
+                                // Valide le mot de passe
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Veuillez entrer du texte';
+                                    return 'Entrez le mot de passe';
                                   }
                                   return null;
                                 },
+                                onSaved: (value) => _password = value!,
+
                               ),
                             ),
                           ],
@@ -206,12 +234,21 @@ class MyCustomFormState extends State<MyCustomForm> {
 
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
+
+                              // Affiche le message pendant le traitement
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Traitement des données'),
-                                ),
+                                )
                               );
-                            }
+
+                              // Sauvegarde les données du formulaire
+                              _formKey.currentState!.save();
+
+                                // Vérification des données
+                                AuthService().connexion(_email, _password, context);
+
+                            } 
                           },
 
                           child: const Icon(
