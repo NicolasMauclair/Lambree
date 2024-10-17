@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+// Classe qui gère les appels à l'PI et renvoir la réponse
 class API {
   Future<http.Response> postRequest({
     required String route, 

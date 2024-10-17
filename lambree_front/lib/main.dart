@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/accueil_vendeur.dart';
-import 'pages/customForm.dart';
+import 'pages/connexionForm.dart';
 
 void main() {
   
@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
       routes: {
         '/': (context) => const MyConnexionForm(), // Écran d'accueil
         '/second': (context) => const MyAccueil(), // Deuxième écran
-      },
+      },  
     );
   }
 }
